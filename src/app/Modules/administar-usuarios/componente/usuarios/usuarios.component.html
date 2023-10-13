@@ -1,0 +1,121 @@
+<title>Lista de Usuarios</title>
+<br>
+<h2 class="text-white text-center">Lista de Usuarios</h2>
+
+<div class="container">
+  <button
+    type="button"
+    class="btn btn-success"
+    data-bs-toggle="modal"
+    data-bs-target="#fromUsuario"
+  >
+    <i class="bi bi-file-earmark-text"></i>
+    Crear Usuario
+  </button>
+
+  <br>
+  <table class="table table-striped">
+    <thead class="table-info">
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody class="text-dark">
+    <tr *ngFor="let usuario of usuariosList">
+      <td>{{usuario.idUsuario}}</td>
+      <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+      <td>{{usuario.email}}</td>
+      <td>{{(usuario.estado | uppercase) == "A" ? "Activo" : "Inactivo"}}</td>
+      <td>{{usuario.rolList | rolFormatHuman }} </td>
+
+      <td>
+        <button
+          class="btn btn-danger" (click)="deleteUser(usuario.idUsuario)"
+        >
+          <i class="bi bi-trash3"></i>
+          Eliminar
+        </button>
+        <button
+          class="btn btn-warning text-white"
+          [routerLink]="['edit', usuario.idUsuario]"
+        >
+          <i class="bi bi-pencil-square"></i>
+          Editar
+        </button>
+        <button
+          class="btn btn-info"
+          data-bs-toggle="modal"
+          data-bs-target="#fromQuitarRol"
+          (click)="respaldarUser(usuario)"
+        >
+          <i class="bi bi-person-x-fill"></i>
+          Quitar Rol
+        </button>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="btn btn-dark"><i class="bi bi-chevron-double-left text-white"></i></a>
+      </li>
+      <li class="page-item"><a class="btn btn-dark text-white">1</a></li>
+      <li class="page-item">
+        <a class="btn btn-dark"><i class="bi bi-chevron-double-right text-white"></i></a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+<!-- Modal Quitar rol -->
+<form class="needs-validation">
+  <div
+    class="modal fade"
+    id="fromQuitarRol"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Quitar Rol</h5>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-row">
+            <div *ngFor="let rol of usuarioRespaldo?.rolList">
+              <button
+                ng-disabled="rolesUsuario.length > 1"
+                type="submit"
+                data-bs-dismiss="modal"
+                class="btn btn-outline-danger"
+                [disabled]="usuarioRespaldo && usuarioRespaldo.rolList.length === 1"
+              >
+                Eliminar {{ rol.nombre }}
+              </button>
+              <br/>
+              <div *ngIf="usuarioRespaldo && usuarioRespaldo.rolList.length === 1">
+                <h6> Cada usuario debe tener al menos un rol agrege otro rol para poder eliminar un rol.</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
