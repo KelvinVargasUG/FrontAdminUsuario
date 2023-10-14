@@ -1,10 +1,11 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
+import {UsuariosComponent} from "./Modules/administar-usuarios/componente/usuarios/usuarios.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'usuario', pathMatch: 'full'},
+  {path: '', redirectTo: UsuariosComponent.ROUTE, pathMatch: 'full'},
   {
-    path: 'usuario',
+    path: UsuariosComponent.ROUTE,
     loadChildren: () => import('./Modules/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule)
   },
   {path: '**', loadChildren: () => import('./Errors/errors.module').then(m => m.ErrorsModule)},

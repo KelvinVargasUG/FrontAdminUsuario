@@ -32,8 +32,7 @@
       <td>{{usuario.nombre}} {{usuario.apellido}}</td>
       <td>{{usuario.email}}</td>
       <td>{{(usuario.estado | uppercase) == "A" ? "Activo" : "Inactivo"}}</td>
-      <td>{{usuario.rolList | rolFormatHuman }} </td>
-
+      <td>{{usuario.rolList | rolListFormatHuman}} </td>
       <td>
         <button
           class="btn btn-danger" (click)="deleteUser(usuario.idUsuario)"
@@ -43,7 +42,7 @@
         </button>
         <button
           class="btn btn-warning text-white"
-          [routerLink]="['edit', usuario.idUsuario]"
+          [routerLink]="[EditarUsuarioComponent.ROUTE, usuario.idUsuario]"
         >
           <i class="bi bi-pencil-square"></i>
           Editar
@@ -97,13 +96,13 @@
           <div class="form-row">
             <div *ngFor="let rol of usuarioRespaldo?.rolList">
               <button
-                ng-disabled="rolesUsuario.length > 1"
                 type="submit"
                 data-bs-dismiss="modal"
                 class="btn btn-outline-danger"
                 [disabled]="usuarioRespaldo && usuarioRespaldo.rolList.length === 1"
+                (click)="deleteRolUser(rol.idRol)"
               >
-                Eliminar {{ rol.nombre }}
+                Eliminar {{ rol | rolFormatHuman}}
               </button>
               <br/>
               <div *ngIf="usuarioRespaldo && usuarioRespaldo.rolList.length === 1">
@@ -115,6 +114,111 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cerrar
         </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!--Modal Crear Usuario-->
+<form
+  [formGroup]="formUser"
+  (ngSubmit)="saveUser()"
+  class="needs-validation"
+>
+  <div
+    class="modal fade"
+    id="fromUsuario"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear Usuario</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input
+                required
+                formControlName="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese Nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Apellido</label>
+              <input
+                formControlName="apellido"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese Apellido"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                aria-describedby="emailHelp"
+                placeholder="Ingrese Email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>contraseña</label>
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+                placeholder="Ingrese password"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Estado</label>
+              <select formControlName="estado" class="form-control">
+                <option value="" selected>Seleccione Estado</option>
+                <option value="A">Activo</option>
+                <option value="I">Inactivo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Rol</label>
+              <select formControlName="rol" class="form-control" required>
+                <option value="" selected>Seleccione Rol</option>
+                <option>
+                  jefe
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <i class="bi bi-caret-left-fill"></i> Cerrar
+          </button>
+
+          <button
+            type="submit"
+            data-bs-dismiss="modal"
+            [disabled]="formUser.invalid"
+            class="btn btn-success"
+          >
+            <i class="bi bi-upload"></i> Guardar
+          </button>
+
+        </div>
       </div>
     </div>
   </div>

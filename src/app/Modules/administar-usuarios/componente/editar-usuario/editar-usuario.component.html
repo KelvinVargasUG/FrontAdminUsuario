@@ -1,1 +1,83 @@
-<p>editar-usuario works!</p>
+<title>Editar Usuario</title>
+<br>
+<h2 class="text-white text-center">Editar Usuario</h2>
+
+<form
+  [formGroup]="formUser"
+  (ngSubmit)="updateUser()"
+  class="needs-validation"
+>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="form-group col-md-6">
+        <label class="text-white">Nombre</label>
+        <input
+          required
+
+          formControlName="nombre"
+          type="text"
+          class="form-control"
+          placeholder="Ingrese Nombre"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="text-white">Apellido</label>
+        <input
+          formControlName="apellido"
+          type="text"
+          class="form-control"
+          placeholder="Ingrese Apellido"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="text-white">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          aria-describedby="emailHelp"
+          placeholder="Ingrese Email"
+        />
+      </div>
+      <div class=" form-group col-md-3">
+        <label class="text-white">Estado</label>
+        <select formControlName="estado" class="form-control">
+          <option value="" selected>Seleccione Estado</option>
+          <option value="A">Activo</option>
+          <option value="I">Inactivo</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label class="text-white">Rol</label>
+        <select
+          formControlName="rol"
+          class="form-control"
+        >
+          <option value="" selected>Seleccione Rol nuevo</option>
+          <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol | rolFormatHuman}}</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="navigateBack()">
+        <i class="bi bi-caret-left-fill"></i> Volver
+      </button>
+      <button
+        type="submit"
+        data-bs-dismiss="modal"
+        [disabled]="formUser.invalid"
+        class="btn btn-success"
+      >
+        <i class="bi bi-upload"></i> Guardar
+      </button>
+    </div>
+
+  </div>
+
+</form>

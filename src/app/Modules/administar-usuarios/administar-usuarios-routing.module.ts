@@ -5,7 +5,7 @@ import {EditarUsuarioComponent} from "./componente/editar-usuario/editar-usuario
 
 const routes: Routes = [
   {path:'', component: UsuariosComponent},
-  {path:'edit/:id', component:EditarUsuarioComponent},
+  {path: EditarUsuarioComponent.ROUTE+'/:id', component:EditarUsuarioComponent},
 ];
 
 @NgModule({
