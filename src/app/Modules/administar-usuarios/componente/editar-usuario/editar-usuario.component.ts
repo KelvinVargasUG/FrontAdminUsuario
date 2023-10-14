@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {RolEntity} from "../../../../Entities/Rol.entity";
+import {RolEntity} from "../../../../Domain/Entities/Rol.entity";
 import {Location} from '@angular/common';
 
 @Component({

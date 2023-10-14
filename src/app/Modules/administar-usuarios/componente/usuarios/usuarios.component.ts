@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {UsuariosEntity} from "../../../../Entities/Usuarios.entity";
+import {UsuariosEntity} from "../../../../Domain/Entities/Usuarios.entity";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {EditarUsuarioComponent} from "../editar-usuario/editar-usuario.component";
+import {RolEntity} from "../../../../Domain/Entities/Rol.entity";
 
 @Component({
   selector: 'app-usuarios',
@@ -37,6 +38,11 @@ export class UsuariosComponent {
         {idRol: 2, nombre: "Rol_User"}
       ]
     }
+  ];
+
+   protected roles: RolEntity[] = [
+    {idRol: 1, nombre: 'Rol_Administrador'},
+    {idRol: 2, nombre: 'Rol_Usuario'}
   ];
 
   protected usuarioRespaldo?: UsuariosEntity;

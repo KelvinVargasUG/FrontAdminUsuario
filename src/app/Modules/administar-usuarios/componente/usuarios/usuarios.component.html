@@ -197,9 +197,7 @@
               <label>Rol</label>
               <select formControlName="rol" class="form-control" required>
                 <option value="" selected>Seleccione Rol</option>
-                <option>
-                  jefe
-                </option>
+                <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol | rolFormatHuman}}</option>
               </select>
             </div>
           </div>

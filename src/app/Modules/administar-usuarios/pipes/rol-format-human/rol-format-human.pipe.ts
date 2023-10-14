@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {RolEntity} from "../../../../Entities/Rol.entity";
+import {RolEntity} from "../../../../Domain/Entities/Rol.entity";
 
 @Pipe({
   name: 'rolFormatHuman'

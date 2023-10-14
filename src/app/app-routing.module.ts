@@ -8,7 +8,7 @@ const routes: Routes = [
     path: UsuariosComponent.ROUTE,
     loadChildren: () => import('./Modules/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule)
   },
-  {path: '**', loadChildren: () => import('./Errors/errors.module').then(m => m.ErrorsModule)},
+  {path: '**', loadChildren: () => import('./Modules/Errors/errors.module').then(m => m.ErrorsModule)},
 ];
 
 @NgModule({
