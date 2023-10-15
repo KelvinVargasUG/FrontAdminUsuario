@@ -1,14 +1,26 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {UsuariosComponent} from "./Modules/administar-usuarios/componente/usuarios/usuarios.component";
+import {UsuariosComponent} from "./Presentation/Modulos/administar-usuarios/componente/usuarios/usuarios.component";
+import {LayoutComponent} from "./Presentation/Layout/layout/layout.component";
+import {LoginRegistreComponent} from "./Presentation/Modulos/auth/componentes/login-registre/login-registre.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: UsuariosComponent.ROUTE, pathMatch: 'full'},
   {
-    path: UsuariosComponent.ROUTE,
-    loadChildren: () => import('./Modules/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule)
+    path: LoginRegistreComponent.ROUTE,
+    loadChildren: () => import('./Presentation/Modulos/auth/auth.module').then(m => m.AuthModule)
   },
-  {path: '**', loadChildren: () => import('./Modules/Errors/errors.module').then(m => m.ErrorsModule)},
+  {
+    path: '', component: LayoutComponent, children: [
+      {path: '', redirectTo: UsuariosComponent.ROUTE, pathMatch: 'full'},
+
+      {
+        path: UsuariosComponent.ROUTE,
+        loadChildren: () => import('./Presentation/Modulos/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule)
+      },
+      {path: '**', loadChildren: () => import('./Presentation/Modulos/Errors/errors.module').then(m => m.ErrorsModule)},
+
+    ]
+  },
 ];
 
 @NgModule({

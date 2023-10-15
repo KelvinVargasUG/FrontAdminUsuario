@@ -1,7 +1,6 @@
 import {UsuariosEntity} from "../Entities/Usuario/Usuarios.entity";
 
-export interface UsuarioRepository {
-
+export interface UsuarioDatasource {
   createUser(usuario: UsuariosEntity): UsuariosEntity;
 
   findAllUser(): UsuariosEntity[];
@@ -11,4 +10,5 @@ export interface UsuarioRepository {
   updateUser(id: number, usuario: UsuariosEntity): UsuariosEntity;
 
   deleteUser(id: number): number;
+
 }

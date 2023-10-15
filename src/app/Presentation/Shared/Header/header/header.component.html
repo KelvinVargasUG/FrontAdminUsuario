@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light fixed-top"  style="background-color: #563d7c;">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" (click)="irPage(UsuariosComponent.ROUTE)"><i class="bi bi-clipboard2"></i> Administracion De Usuarios</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" style="background-color: #c3bbc9" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" style="color: #523961" id="offcanvasDarkNavbarLabel"><b>Dark OFFCANVAS</b></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active"  style="color: #523961" aria-current="page" (click)="irPage(UsuariosComponent.ROUTE)"><b><i class="bi bi-house"></i> Home</b></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  style="color: #523961" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           <b><i class="bi bi-clipboard2"></i> Administración de Usuarios</b>
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #c3bbc9">
+                            <li><a class="dropdown-item"  style="color: #523961" (click)="irPage(UsuariosComponent.ROUTE)"><b><i class="bi bi-person-circle"></i> Usuarios</b></a></li>
+                            <li><a class="dropdown-item"  style="color: #523961"><b><i class="bi bi-person-badge-fill"></i> Roles</b></a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item"  style="color: #523961" href="#"><b>Something else here</b></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="offcanvas-footer">
+                <form class="form-inline" style="color: #c3bbc9">
+                    <button type="button"  class="btn" style="background-color: #523961; color: #c3bbc9" >
+                        <b><i class="bi bi-box-arrow-right" style="color: #c3bbc9"></i> Cerrar Session</b>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
