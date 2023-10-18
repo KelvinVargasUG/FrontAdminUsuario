@@ -48,7 +48,7 @@ export class UsuariosComponent implements OnInit {
 
   private findAllUser(): void {
     this.usuarioService.findAllUser().subscribe({
-      next: (data: any) => {
+      next: (data: UsuariosEntity[]) => {
         this.usuariosList = data;
       },
       error: (error: any) => {
@@ -73,14 +73,21 @@ export class UsuariosComponent implements OnInit {
   }
 
   protected deleteUser(id: number): void {
-    const status = this.usuarioService.deleteUser(id);
-    if (status === 200) {
-      const usuariosActualizados = this.usuariosList.filter(
-        (usuario) => usuario.id !== id
-      );
-      this.usuariosList = [...usuariosActualizados];
-      alert('Eliminado Correctamente');
-    }
+    this.usuarioService.deleteUser(id).subscribe({
+      next: (data: any) => {
+        if (data.status == 200) {
+          const usuariosActualizados = this.usuariosList.filter(
+            (usuario: UsuariosEntity) => usuario.id !== id
+          );
+          this.usuariosList = [...usuariosActualizados];
+          alert('Eliminado Correctamente');
+        }
+      },
+      error: (error: any) => {
+        alert(error.error);
+      }
+    });
+
   }
 
   protected deleteRolUser(id: number): void {

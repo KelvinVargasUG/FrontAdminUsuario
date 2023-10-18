@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UsuarioRepository} from "../../Domain/Repositories/usuario.repository";
 import {UsuariosEntity} from "../../Domain/Entities/Usuario/Usuarios.entity";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -9,44 +9,34 @@ import {Observable} from "rxjs";
 })
 export class UsuarioService {
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
-  usuariosList: UsuariosEntity[] = [
+  usuariosList: UsuariosEntity[] = [];
 
-  ];
-
-  apiBase ="http://localhost:8081/api/usuarios";
+  apiBase = "http://localhost:8081/api/usuarios";
 
   createUser(usuario: UsuariosEntity): UsuariosEntity {
     this.usuariosList.push(usuario)
     return usuario;
   }
 
-  deleteUser(id: number): number {
-    return 200;
+  deleteUser(id: number): Observable<HttpResponse<any>>{
+    return this.http.delete(`${this.apiBase}/${id}`, {observe: 'response'});
   }
 
-  findAllUser(){
-    return this.http.get<UsuariosEntity>(`${this.apiBase}`);
+  findAllUser(): Observable<UsuariosEntity[]> {
+    return this.http.get<UsuariosEntity[]>(`${this.apiBase}`);
   }
 
-  findByIdUser(id: number): UsuariosEntity | null {
-    const usuario = this.usuariosList.find(usuario => usuario.id == id);
-    if (usuario == undefined) {
-      return null;
-    }
-    return usuario;
+  findByIdUser(id: number): Observable<HttpResponse<any>> {
+    return this.http.get(`${this.apiBase}/${id}`, {observe: 'response'});
   }
 
   updateUser(id: number, usuario: UsuariosEntity): UsuariosEntity {
     return usuario;
   }
 }
-
-
-
-
 
 
 /*{
