@@ -8,7 +8,8 @@ import { LayoutComponent } from './Presentation/Layout/layout/layout.component';
 import { FooterComponent } from './Presentation/Shared/Footer/footer/footer.component';
 import { HeaderComponent } from './Presentation/Shared/Header/header/header.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // Importa ReactiveFormsModule aquí
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule} from "@angular/common/http";  // Importa ReactiveFormsModule aquí
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // Importa R
     RouterOutlet,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   exports: [

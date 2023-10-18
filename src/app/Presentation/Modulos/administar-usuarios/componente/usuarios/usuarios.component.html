@@ -99,7 +99,7 @@
                                     type="submit"
                                     data-bs-dismiss="modal"
                                     class="btn btn-outline-danger"
-                                    [disabled]="usuarioRespaldo && usuarioRespaldo.rolList.length === 1"
+                                   [disabled]="usuarioRespaldo && usuarioRespaldo.rolList.length === 1"
                                     (click)="deleteRolUser(rol.id)"
                             >
                                 Eliminar {{ rol | rolFormatHuman}}

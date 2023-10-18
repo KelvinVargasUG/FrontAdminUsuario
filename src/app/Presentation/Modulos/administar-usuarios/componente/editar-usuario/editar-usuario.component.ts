@@ -65,8 +65,8 @@ export class EditarUsuarioComponent implements OnInit {
     }
 
     protected getUsuarioById(id: number): void {
-        this.usuario = this.usuarioService.getService().findByIdUser(id);
-        this.roles = this.rolService.getService().findByUserUnassignedRoles(this.id);
+        this.usuario = this.usuarioService.findByIdUser(id);
+       // this.roles = this.rolService.findByUserUnassignedRoles(this.id);
         if (this.usuario != null) {
             this.llenarFormulario();
         } else {
