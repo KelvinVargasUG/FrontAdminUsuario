@@ -66,13 +66,11 @@ export class UsuariosComponent implements OnInit {
       const usuario: UsuariosEntity = this.formUser.value;
       this.usuarioService.createUser(usuario).subscribe({
         next: (data: any) => {
-          console.log(data.body);
           if (data.status == 200) {
             this.usuariosList.unshift(data.body.body);
             alert('Usuario Guardado Correctamente');
           }
         },error: (error: any) => {
-          console.log(error);
           alert(error.error);
         }
       });

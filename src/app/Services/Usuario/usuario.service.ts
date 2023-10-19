@@ -30,8 +30,8 @@ export class UsuarioService {
     return this.http.get(`${this.apiBase}/${id}`, {observe: 'response'});
   }
 
-  updateUser(id: number, usuario: UsuariosEntity): UsuariosEntity {
-    return usuario;
+  updateUser(id: number, usuario: UsuariosEntity): Observable<HttpResponse<any>> {
+    return this.http.put(`${this.apiBase}/${id}`, usuario, {observe: 'response'});
   }
 }
 

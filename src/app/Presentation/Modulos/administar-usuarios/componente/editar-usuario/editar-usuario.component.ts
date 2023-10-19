@@ -61,6 +61,7 @@ export class EditarUsuarioComponent implements OnInit {
       apellido: this.usuario?.apellido,
       email: this.usuario?.email,
       estado: this.usuario?.estado.toUpperCase(),
+      rol: this.usuario?.rolList
     });
   }
 
@@ -95,7 +96,37 @@ export class EditarUsuarioComponent implements OnInit {
 
   protected updateUser(): void {
     if (this.formUser.valid) {
-      alert('Actualizado Correctamente');
+      const usuarioFrom = this.formUser.value;
+      const usuario: UsuariosEntity = usuarioFrom;
+      const ingresarId = usuarioFrom.rol.some((rol: any) => {
+        return rol.id !== null && rol.id !== undefined && rol.id !== '';
+      });
+      this.usuarioService.updateUser(this.id, usuario).subscribe(
+        {
+          next: (data: any) => {
+            if (data.status == 200) {
+              alert('Actualizado Correctamente');
+              if(ingresarId){
+
+              }
+              this.navigateBack();
+            }
+          },
+          error: (error: any) => {
+            const errores = error.error.errors;
+
+            if (errores && errores.length > 0) {
+              let mensajeErrores = "Errores:\n";
+
+              for (const error of errores) {
+                mensajeErrores += error + "\n";
+              }
+              alert(mensajeErrores);
+            }
+          }
+        }
+      );
+
     } else {
       alert('Formulario Invalido');
     }
