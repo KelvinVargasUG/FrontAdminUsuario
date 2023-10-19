@@ -12,16 +12,13 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-  usuariosList: UsuariosEntity[] = [];
-
   apiBase = "http://localhost:8081/api/usuarios";
 
-  createUser(usuario: UsuariosEntity): UsuariosEntity {
-    this.usuariosList.push(usuario)
-    return usuario;
+  createUser(usuario: UsuariosEntity): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.apiBase}`, usuario, {observe: 'response'});
   }
 
-  deleteUser(id: number): Observable<HttpResponse<any>>{
+  deleteUser(id: number): Observable<HttpResponse<any>> {
     return this.http.delete(`${this.apiBase}/${id}`, {observe: 'response'});
   }
 

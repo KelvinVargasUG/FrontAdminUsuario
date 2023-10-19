@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthUsuario} from "../../../../../Domain/Entities/Entities";
+import {Router} from "@angular/router";
+import {UsuariosComponent} from "../../../administar-usuarios/componente/usuarios/usuarios.component";
 
 @Component({
     selector: 'app-login-registre',
@@ -15,7 +17,7 @@ export class LoginRegistreComponent implements OnInit {
     protected isLogin: boolean = true;
     private usuarioAuth!: AuthUsuario;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -42,7 +44,9 @@ export class LoginRegistreComponent implements OnInit {
     protected logIn(): void {
         if (this.formLogin.valid) {
             this.usuarioAuth = this.formLogin.value;
+            this.router.navigate([UsuariosComponent.ROUTE]);
             console.log(this.usuarioAuth);
+
         } else {
             alert('Formulario Invalido');
 

@@ -35,14 +35,14 @@ export class UsuariosComponent implements OnInit {
     this.formUser = this.formBuilder.group({
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
-      estado: ['', [Validators.required, Validators.pattern(/^[IA]$/)]],
+      //estado: ['', [Validators.required, Validators.pattern(/^[IA]$/)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8)]]/*,
       rol: this.formBuilder.array([
         this.formBuilder.group({
           id: ['', [Validators.required]]
         })
-      ])
+      ])*/
     });
   }
 
@@ -64,8 +64,18 @@ export class UsuariosComponent implements OnInit {
   protected saveUser(): void {
     if (this.formUser.valid) {
       const usuario: UsuariosEntity = this.formUser.value;
-      this.usuarioService.createUser(usuario);
-      alert('Usuario Guardado Correctamente');
+      this.usuarioService.createUser(usuario).subscribe({
+        next: (data: any) => {
+          console.log(data.body);
+          if (data.status == 200) {
+            this.usuariosList.unshift(data.body.body);
+            alert('Usuario Guardado Correctamente');
+          }
+        },error: (error: any) => {
+          console.log(error);
+          alert(error.error);
+        }
+      });
       this.buildForm();
     } else {
       alert('Formulario Invalido');
@@ -87,7 +97,6 @@ export class UsuariosComponent implements OnInit {
         alert(error.error);
       }
     });
-
   }
 
   protected deleteRolUser(id: number): void {

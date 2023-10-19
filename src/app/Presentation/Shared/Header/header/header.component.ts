@@ -4,6 +4,7 @@ import {UsuariosComponent} from "../../../Modulos/administar-usuarios/componente
 import {
   EditarUsuarioComponent
 } from "../../../Modulos/administar-usuarios/componente/editar-usuario/editar-usuario.component";
+import {LoginRegistreComponent} from "../../../Modulos/auth/componentes/login-registre/login-registre.component";
 
 @Component({
   selector: 'app-header',
@@ -22,4 +23,5 @@ export class HeaderComponent {
 
   protected readonly UsuariosComponent = UsuariosComponent;
   protected readonly EditarUsuarioComponent = EditarUsuarioComponent;
+  protected readonly LoginRegistreComponent = LoginRegistreComponent;
 }
