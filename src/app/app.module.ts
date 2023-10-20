@@ -9,7 +9,8 @@ import { FooterComponent } from './Presentation/Shared/Footer/footer/footer.comp
 import { HeaderComponent } from './Presentation/Shared/Header/header/header.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from "@angular/common/http";  // Importa ReactiveFormsModule aquí
+import { HttpClientModule} from "@angular/common/http";
+import {authInterceptorProviders} from "./Services/Interceptors/auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { HttpClientModule} from "@angular/common/http";  // Importa ReactiveForm
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   exports: [
   ],
   bootstrap: [AppComponent]
