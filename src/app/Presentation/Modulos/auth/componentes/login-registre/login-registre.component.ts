@@ -44,11 +44,13 @@ export class LoginRegistreComponent implements OnInit {
 
   protected logIn(): void {
     if (this.formLogin.valid) {
-      const usuario = this.formLogin.value;
-
-      this.auhtService.generateToken(usuario).subscribe({
+      this.usuarioAuth = this.formLogin.value;
+      this.auhtService.generateToken(this.usuarioAuth).subscribe({
         next: (data: any) => {
-          this.auhtService.loginUser(data.token);
+          if (data.status == 200) {
+            this.auhtService.loginUser(data.body.token);
+            this.router.navigate([UsuariosComponent.ROUTE]);
+          }
           /*
            this.auhtService.getCurrentUser().subscribe({
              next: (user: any) => {
@@ -64,11 +66,6 @@ export class LoginRegistreComponent implements OnInit {
         },
       });
 
-
-      this.usuarioAuth = this.formLogin.value;
-      this.router.navigate([UsuariosComponent.ROUTE]);
-      console.log(this.usuarioAuth);
-
     } else {
       alert('Formulario Invalido');
 
@@ -78,6 +75,17 @@ export class LoginRegistreComponent implements OnInit {
   protected registre(): void {
     if (this.formRegistre.valid) {
       this.usuarioAuth = this.formRegistre.value;
+      this.auhtService.registreUsuario(this.usuarioAuth).subscribe({
+        next: (data: any) => {
+          if (data.status == 200) {
+            alert('Usuario Registrado');
+            this.router.navigate([UsuariosComponent.ROUTE]);
+          }
+        },
+        error: (error) => {
+          alert(error.error);
+        }
+      });
       console.log(this.usuarioAuth);
     } else {
       alert('Formulario Invalido');

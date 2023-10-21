@@ -2,6 +2,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UsuariosEntity} from "../../Domain/Entities/Usuario/Usuarios.entity";
 import {Observable, Subject} from "rxjs";
+import {AuthUsuario} from "../../Domain/Entities/Auth/AuthUsuario";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,12 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  registreUsuario(usuario: UsuariosEntity) {
-    return this.http.post<UsuariosEntity>(`${this.url_api}/registrar`, usuario);
+  public registreUsuario(authUsuario: AuthUsuario): Observable<HttpResponse<any>> {
+    return this.http.post<UsuariosEntity>(`${this.url_api}/registrar`, authUsuario, {observe: 'response'});
   }
 
-  public generateToken(loginData: any) {
-    return this.http.post(`${this.url_api}/generate-token`, loginData);
+  public generateToken(authUsuario: AuthUsuario): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.url_api}/generate-token`, authUsuario, {observe: 'response'});
   }
 
   //guardamos el token en el storage
@@ -28,16 +29,12 @@ export class AuthService {
 
   public isLoggedIn() {
     let tokenStr = localStorage.getItem('token');
-    if (tokenStr == undefined || tokenStr == null || tokenStr == '') {
-      return false;
-    } else {
-      return true;
-    }
+    return !(tokenStr);
   }
 
   //Cierre de session y delete token del storage
 
-  public cerrarSession() {
+  public cerrarSesion() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
@@ -53,18 +50,25 @@ export class AuthService {
   }
 
   public getUser() {
-    let userStr = localStorage.getItem('user');
-    if (userStr != null) {
-      return JSON.parse(userStr);
-    } else {
-      this.cerrarSession();
-      return null;
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        return user;
+      } catch (error) {
+        console.error('Error al analizar el usuario:', error);
+      }
     }
+    //this.cerrarSesion();
+    return null;
   }
 
   public getUserRol() {
-    let user: any = this.getUser();
-    return user.authorities[0].authority;
+    const user = this.getUser();
+    if (user && user.authorities && user.authorities.length > 0) {
+      return user.authorities[0].authority;
+    }
+    return null;
   }
 
   public getCurrentUser() {
