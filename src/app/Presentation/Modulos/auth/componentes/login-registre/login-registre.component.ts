@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthUsuario} from "../../../../../Domain/Entities/Entities";
 import {Router} from "@angular/router";
-import {UsuariosComponent} from "../../../administar-usuarios/componente/usuarios/usuarios.component";
-import {AuthService} from "../../../../../Services/Auth/auth.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {catchError, of, switchMap} from "rxjs";
+
+import {AuthUsuario} from "../../../../../Domain/Entities/Entities";
+import {UsuariosComponent} from "../../../administar-usuarios/componente/usuarios/usuarios.component";
+import {AuthService} from "../../../../../Services/Services";
 
 @Component({
   selector: 'app-login-registre',
@@ -48,7 +49,6 @@ export class LoginRegistreComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
     });
   }
-
 
   protected SignIn(): void {
     if (!this.formLogin.valid) {

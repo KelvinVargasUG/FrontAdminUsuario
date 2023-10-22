@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {UsuarioRepository} from "../../Domain/Repositories/usuario.repository";
-import {UsuariosEntity} from "../../Domain/Entities/Usuario/Usuarios.entity";
+import {UsuariosEntity} from "../../Domain/Entities/Entities";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 

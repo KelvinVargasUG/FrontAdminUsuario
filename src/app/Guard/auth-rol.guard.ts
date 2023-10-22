@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {AuthService} from "../Services/Auth/auth.service";
+
+import {AuthService} from "../Services/Services";
 import {LoginRegistreComponent} from "../Presentation/Modulos/auth/componentes/login-registre/login-registre.component";
 
 @Injectable({

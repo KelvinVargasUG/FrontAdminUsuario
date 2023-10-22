@@ -1,8 +1,7 @@
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {UsuariosEntity} from "../../Domain/Entities/Usuario/Usuarios.entity";
-import {Observable, Subject} from "rxjs";
-import {AuthUsuario} from "../../Domain/Entities/Auth/AuthUsuario";
+import {UsuariosEntity, AuthUsuario} from "../../Domain/Entities/Entities";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -32,20 +31,18 @@ export class AuthService {
     return (tokenStr);
   }
 
-  //Cierre de session y delete token del storage
-
-  public static SIGN_OFF() {
+  public static SIGN_OFF(): boolean {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
   }
 
   //Obtener token
-  public getToken() {
+  public getToken(): String | null {
     return localStorage.getItem('token');
   }
 
-  public setUser(user: any) {
+  public setUser(user: any): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
@@ -59,7 +56,6 @@ export class AuthService {
         console.error('Error al analizar el usuario:', error);
       }
     }
-    //this.cerrarSesion();
     return null;
   }
 

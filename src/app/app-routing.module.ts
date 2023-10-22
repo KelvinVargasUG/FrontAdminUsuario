@@ -4,7 +4,8 @@ import {UsuariosComponent} from "./Presentation/Modulos/administar-usuarios/comp
 import {LayoutComponent} from "./Presentation/Layout/layout/layout.component";
 import {LoginRegistreComponent} from "./Presentation/Modulos/auth/componentes/login-registre/login-registre.component";
 import {AuthRolGuard} from "./Guard/auth-rol.guard";
-import {UserRolEnum} from "./Enums/user-rol";
+import {UserRolEnum} from "./Domain/Enums/user-rol";
+import {HomeComponent} from "./Presentation/Modulos/Home/Componentes/home/home.component";
 
 const routes: Routes = [
   {
@@ -13,8 +14,12 @@ const routes: Routes = [
   },
   {
     path: '', component: LayoutComponent, children: [
-      {path: '', redirectTo: UsuariosComponent.ROUTE, pathMatch: 'full'},
+      {path: '', redirectTo: HomeComponent.ROUTE, pathMatch: 'full'},
 
+      {
+        path: HomeComponent.ROUTE,
+        loadChildren: () => import('./Presentation/Modulos/Home/home.module').then(m => m.HomeModule)
+      },
       {
         path: UsuariosComponent.ROUTE,
         loadChildren: () => import('./Presentation/Modulos/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule),

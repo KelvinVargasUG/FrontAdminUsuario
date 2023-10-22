@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {EditarUsuarioComponent} from "../editar-usuario/editar-usuario.component";
 
 import {UsuariosEntity, RolEntity} from '../../../../../Domain/Entities/Entities';
 import {UsuarioService, RolService} from '../../../../../Services/Services';
+import {EditarUsuarioComponent} from "../editar-usuario/editar-usuario.component";
 
 @Component({
   selector: 'app-usuarios',
