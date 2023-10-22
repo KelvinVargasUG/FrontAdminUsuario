@@ -4,6 +4,7 @@ import {AuthUsuario} from "../../../../../Domain/Entities/Entities";
 import {Router} from "@angular/router";
 import {UsuariosComponent} from "../../../administar-usuarios/componente/usuarios/usuarios.component";
 import {AuthService} from "../../../../../Services/Auth/auth.service";
+import {catchError, of, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-login-registre',
@@ -24,6 +25,12 @@ export class LoginRegistreComponent implements OnInit {
   ngOnInit(): void {
     this.buildFormLogin();
     this.buildFormRegistre();
+    this.checkLoggedInStatus();
+  }
+  private checkLoggedInStatus() {
+    if (this.auhtService.isLoggedIn()) {
+      this.router.navigate([UsuariosComponent.ROUTE]);
+    }
   }
 
   private buildFormRegistre(): void {
@@ -42,35 +49,39 @@ export class LoginRegistreComponent implements OnInit {
     });
   }
 
-  protected logIn(): void {
-    if (this.formLogin.valid) {
-      this.usuarioAuth = this.formLogin.value;
-      this.auhtService.generateToken(this.usuarioAuth).subscribe({
-        next: (data: any) => {
-          if (data.status == 200) {
-            this.auhtService.loginUser(data.body.token);
-            this.router.navigate([UsuariosComponent.ROUTE]);
-          }
-          /*
-           this.auhtService.getCurrentUser().subscribe({
-             next: (user: any) => {
-               //this.comprobarRoles(user);
-             },
-             error: (error) => {
-             },
-           });
-           */
-        },
-        error: (error) => {
-          alert(error.error);
-        },
-      });
 
-    } else {
+  protected SignIn(): void {
+    if (!this.formLogin.valid) {
       alert('Formulario Invalido');
-
+      return;
     }
+
+    this.usuarioAuth = this.formLogin.value;
+
+    this.auhtService.generateToken(this.usuarioAuth)
+      .pipe(
+        switchMap((data: any) => {
+          if (data.status !== 200) {
+            alert(data.error);
+            return of(null);
+          }
+
+          this.auhtService.loginUser(data.body.token);
+          return this.auhtService.getCurrentUser();
+        }),
+        catchError((error) => {
+          alert(error.error);
+          return of(null);
+        })
+      )
+      .subscribe((user: any) => {
+        if (user && user.status === 200) {
+          this.auhtService.setUser(user.body);
+          this.router.navigate([UsuariosComponent.ROUTE]);
+        }
+      });
   }
+
 
   protected registre(): void {
     if (this.formRegistre.valid) {

@@ -4,6 +4,7 @@ import {UsuariosComponent} from "./Presentation/Modulos/administar-usuarios/comp
 import {LayoutComponent} from "./Presentation/Layout/layout/layout.component";
 import {LoginRegistreComponent} from "./Presentation/Modulos/auth/componentes/login-registre/login-registre.component";
 import {AuthRolGuard} from "./Guard/auth-rol.guard";
+import {UserRolEnum} from "./Enums/user-rol";
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
       {
         path: UsuariosComponent.ROUTE,
         loadChildren: () => import('./Presentation/Modulos/administar-usuarios/administar-usuarios.module').then(m => m.AdministarUsuariosModule),
-        canActivate: [AuthRolGuard], data: {requiredRole: 'Rol_Admin'}
+        canActivate: [AuthRolGuard], data: {requiredRole: UserRolEnum.ROL_ADMIN}
       },
       {path: '**', loadChildren: () => import('./Presentation/Modulos/Errors/errors.module').then(m => m.ErrorsModule)},
 

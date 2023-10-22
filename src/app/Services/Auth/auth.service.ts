@@ -29,12 +29,12 @@ export class AuthService {
 
   public isLoggedIn() {
     let tokenStr = localStorage.getItem('token');
-    return !(tokenStr);
+    return (tokenStr);
   }
 
   //Cierre de session y delete token del storage
 
-  public cerrarSesion() {
+  public static SIGN_OFF() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
@@ -71,8 +71,8 @@ export class AuthService {
     return null;
   }
 
-  public getCurrentUser() {
-    return this.http.get(`${this.url_api}/actual-usuario`);
+  public getCurrentUser(): Observable<HttpResponse<any>> {
+    return this.http.get(`${this.url_api}/actual-usuario`, {observe: 'response'});
   }
 
 
