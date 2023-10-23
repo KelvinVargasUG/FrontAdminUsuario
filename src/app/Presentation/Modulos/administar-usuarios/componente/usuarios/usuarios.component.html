@@ -50,36 +50,24 @@
         <button
           class="btn btn-info text-white"
           data-bs-toggle="modal"
-          data-bs-target="#fromQuitarRol"
-          (click)="respaldarUser(usuario)"
+          data-bs-target="#fromVerRol"
+          (click)="this.getRoles(usuario.id);"
         >
           <i class="bi bi-credit-card-2-front"></i>
           Ver Rol
         </button>
       </td>
     </tr>
-
     </tbody>
   </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="btn btn-dark"><i class="bi bi-chevron-double-left text-white"></i></a>
-      </li>
-      <li class="page-item"><a class="btn btn-dark text-white">1</a></li>
-      <li class="page-item">
-        <a class="btn btn-dark"><i class="bi bi-chevron-double-right text-white"></i></a>
-      </li>
-    </ul>
-  </nav>
 </div>
 
 
-<!-- Modal Quitar rol -->
+<!-- Modal Ver rol -->
 <form class="needs-validation">
   <div
     class="modal fade"
-    id="fromQuitarRol"
+    id="fromVerRol"
     data-bs-backdrop="static"
     data-bs-keyboard="false"
     tabindex="-1"
@@ -89,26 +77,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" style="background-color: #523961">
-          <h5 class="modal-title text-light">Quitar Rol</h5>
+          <h5 class="modal-title text-light">Ver Rol</h5>
         </div>
-
         <div class="modal-body" style="background-color: #c3bbc9">
           <div class="form-row">
-            <div *ngFor="let rol of usuarioRespaldo?.rolList">
-              <button
-                type="submit"
-                data-bs-dismiss="modal"
-                class="btn btn-outline-danger"
-                [disabled]="usuarioRespaldo && usuarioRespaldo.rolList.length === 1"
-                (click)="deleteRolUser(rol.id)"
-              >
-                Eliminar {{ rol | rolFormatHuman}}
-              </button>
+            <div *ngFor="let rol of roles">
+              <p class="text-danger"> <b>{{rol | rolFormatHuman}}</b></p>
+
+              <p class="text-black">{{rol.descripcion}}</p>
               <br/>
-              <div *ngIf="usuarioRespaldo && usuarioRespaldo.rolList.length === 1">
-                <h6> Cada usuario debe tener al menos un rol agrege otro rol para poder eliminar un
-                  rol.</h6>
-              </div>
             </div>
           </div>
         </div>

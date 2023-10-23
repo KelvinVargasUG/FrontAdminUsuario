@@ -6,6 +6,7 @@ import {catchError, of, switchMap} from "rxjs";
 import {AuthUsuario} from "../../../../../Domain/Entities/Entities";
 import {UsuariosComponent} from "../../../administar-usuarios/componente/usuarios/usuarios.component";
 import {AuthService} from "../../../../../Services/Services";
+import {HomeComponent} from "../../../Home/Componentes/home/home.component";
 
 @Component({
   selector: 'app-login-registre',
@@ -30,7 +31,7 @@ export class LoginRegistreComponent implements OnInit {
   }
   private checkLoggedInStatus() {
     if (this.auhtService.isLoggedIn()) {
-      this.router.navigate([UsuariosComponent.ROUTE]);
+      this.router.navigate([HomeComponent.ROUTE]);
     }
   }
 
@@ -65,7 +66,6 @@ export class LoginRegistreComponent implements OnInit {
             alert(data.error);
             return of(null);
           }
-
           this.auhtService.loginUser(data.body.token);
           return this.auhtService.getCurrentUser();
         }),
@@ -77,11 +77,10 @@ export class LoginRegistreComponent implements OnInit {
       .subscribe((user: any) => {
         if (user && user.status === 200) {
           this.auhtService.setUser(user.body);
-          this.router.navigate([UsuariosComponent.ROUTE]);
+          this.router.navigate([HomeComponent.ROUTE]);
         }
       });
   }
-
 
   protected registre(): void {
     if (this.formRegistre.valid) {
@@ -90,7 +89,7 @@ export class LoginRegistreComponent implements OnInit {
         next: (data: any) => {
           if (data.status == 200) {
             alert('Usuario Registrado');
-            this.router.navigate([UsuariosComponent.ROUTE]);
+            this.router.navigate([HomeComponent.ROUTE]);
           }
         },
         error: (error) => {
@@ -102,7 +101,5 @@ export class LoginRegistreComponent implements OnInit {
       alert('Formulario Invalido');
     }
   }
-
-
 }
 

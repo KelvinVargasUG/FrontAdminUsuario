@@ -16,6 +16,10 @@ export class RolService {
     return this.http.get<RolEntity[]>(`${this.apiBase}`);
   }
 
+  findRolById(id: number): Observable<RolEntity[]> {
+    return this.http.get<RolEntity[]>(`${this.apiBase}/user/${id}`);
+  }
+
   /*
   updateUserRol(id_usuario: number, id_rol: number): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.apiBase}/${id_usuario}/roles/${id_rol}`, null);

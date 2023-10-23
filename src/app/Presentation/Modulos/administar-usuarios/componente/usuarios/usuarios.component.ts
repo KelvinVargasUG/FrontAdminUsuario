@@ -20,15 +20,12 @@ export class UsuariosComponent implements OnInit {
 
   protected roles!: RolEntity[];
 
-  protected usuarioRespaldo?: UsuariosEntity;
-
   ngOnInit(): void {
     this.findAllUser();
   }
 
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService, private rolService: RolService) {
     this.buildForm();
-    this.getRoles();
   }
 
   private buildForm(): void {
@@ -57,10 +54,6 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  protected respaldarUser(usuario: UsuariosEntity): void {
-    this.usuarioRespaldo = usuario;
-  }
-
   protected saveUser(): void {
     if (this.formUser.valid) {
       const usuario: UsuariosEntity = this.formUser.value;
@@ -70,7 +63,7 @@ export class UsuariosComponent implements OnInit {
             this.usuariosList.unshift(data.body.body);
             alert('Usuario Guardado Correctamente');
           }
-        },error: (error: any) => {
+        }, error: (error: any) => {
           alert(error.error);
         }
       });
@@ -97,16 +90,15 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  protected deleteRolUser(id: number): void {
-    const rolActualizados = this.usuarioRespaldo?.rolList?.filter(
-      (rol) => rol.id !== id
-    );
-    this.usuarioRespaldo!.rolList = [...rolActualizados!];
-    alert('Eliminado Correctamente');
-  }
-
-  protected getRoles(): RolEntity[] {
-    // this.roles =
+  protected getRoles(id: number): RolEntity[] {
+    this.rolService.findRolById(id).subscribe({
+      next: (data: RolEntity[]) => {
+        this.roles = data;
+      },
+      error: (error: any) => {
+        alert("Algo salio mal intente otra vez")
+      }
+    });
     return this.roles;
   }
 
