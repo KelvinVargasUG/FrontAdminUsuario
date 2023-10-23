@@ -7,6 +7,7 @@ import { UsuariosComponent } from './componente/usuarios/usuarios.component';
 import { RolListFormatHumanPipe } from './pipes/rol-format-human/rol-list-format-human.pipe';
 import { RolFormatHumanPipe } from './pipes/rol-format-human/rol-format-human.pipe';
 import {ReactiveFormsModule} from "@angular/forms";
+import { RolesComponent } from './componente/roles/roles.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     UsuariosComponent,
     RolListFormatHumanPipe,
     RolFormatHumanPipe,
+    RolesComponent,
   ],
     imports: [
         CommonModule,

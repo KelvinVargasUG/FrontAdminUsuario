@@ -7,6 +7,7 @@ import {
 import {LoginRegistreComponent} from "../../../Modulos/auth/componentes/login-registre/login-registre.component";
 import {AuthService} from "../../../../Services/Services";
 import {HomeComponent} from "../../../Modulos/Home/Componentes/home/home.component";
+import {RolesComponent} from "../../../Modulos/administar-usuarios/componente/roles/roles.component";
 
 @Component({
   selector: 'app-header',
@@ -31,4 +32,5 @@ export class HeaderComponent {
   protected readonly LoginRegistreComponent = LoginRegistreComponent;
   protected readonly AuthService = AuthService;
   protected readonly HomeComponent = HomeComponent;
+  protected readonly RolesComponent = RolesComponent;
 }
