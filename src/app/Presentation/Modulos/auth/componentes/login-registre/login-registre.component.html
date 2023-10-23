@@ -32,7 +32,7 @@
                                                            placeholder="Your Password" autocomplete="off">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
-                                                <a class="btn mt-4" (click)="SignIn()">submit</a>
+                                                <a class="btn mt-4" (click)="SignIn()" *ngIf="formLogin.valid">submit</a>
                                                 <p class="mb-0 mt-4 text-center"><a class="link">Forgot your
                                                     password?</a></p>
                                             </div>
@@ -68,7 +68,7 @@
                                                            placeholder="Your Password" id="logpass" autocomplete="off">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
-                                                <a class="btn mt-4" (click)="registre()">submit</a>
+                                                <a class="btn mt-4" (click)="registre()" *ngIf="formRegistre.valid">submit</a>
                                             </div>
                                         </div>
                                     </div>
