@@ -47,9 +47,9 @@ export class EditarUsuarioComponent implements OnInit {
       apellido: ['', [Validators.required]],
       estado: ['', [Validators.required, Validators.pattern(/^[IA]$/)]],
       email: ['', [Validators.required, Validators.email]],
-      rol: this.formBuilder.array([
+      rolList: this.formBuilder.array([
         this.formBuilder.group({
-          id: ['']
+          id: [0]
         })
       ])
     });
@@ -61,7 +61,7 @@ export class EditarUsuarioComponent implements OnInit {
       apellido: this.usuario?.apellido,
       email: this.usuario?.email,
       estado: this.usuario?.estado.toUpperCase(),
-      rol: this.usuario?.rolList
+      rolList: this.usuario?.rolList
     });
   }
 
@@ -94,46 +94,51 @@ export class EditarUsuarioComponent implements OnInit {
     });
   }
 
+  protected navigateBack(): void {
+    this.location.back();
+  }
+
   protected updateUser(): void {
     if (this.formUser.valid) {
-      const usuarioFrom = this.formUser.value;
-      const usuario: UsuariosEntity = usuarioFrom;
-      const ingresarId = usuarioFrom.rol.some((rol: any) => {
-        return rol.id !== null && rol.id !== undefined && rol.id !== '';
-      });
-      this.usuarioService.updateUser(this.id, usuario).subscribe(
-        {
-          next: (data: any) => {
-            if (data.status == 200) {
-              alert('Actualizado Correctamente');
-              if(ingresarId){
+      const usuarioFrom: UsuariosEntity = this.formUser.value;
+      const idRol = this.formUser.value.rolList[0].id;
 
-              }
-              this.navigateBack();
-            }
-          },
-          error: (error: any) => {
-            const errores = error.error.errors;
-
-            if (errores && errores.length > 0) {
-              let mensajeErrores = "Errores:\n";
-
-              for (const error of errores) {
-                mensajeErrores += error + "\n";
-              }
-              alert(mensajeErrores);
-            }
-          }
-        }
-      );
+      this.updateUserAndHandleErrors(usuarioFrom, idRol);
 
     } else {
       alert('Formulario Invalido');
     }
   }
 
-  protected navigateBack(): void {
-    this.location.back();
+  private updateUserAndHandleErrors(usuarioFrom: UsuariosEntity, idRol: number): void {
+    this.usuarioService.updateUser(this.id, usuarioFrom).subscribe({
+      next: (data: any) => {
+        if (data.status === 200) {
+          this.updateRol(idRol);
+        }
+      },
+      error: (error: any) => {
+        alert("Algo salio mal intente mas tarde");
+      }
+    });
+  }
+
+  private updateRol(idRol: number): void {
+    if (idRol !== 0) {
+      this.usuarioService.updateRolUser(this.id, idRol).subscribe({
+        next: (data: any) => {
+          if (data.status === 200) {
+            alert('Actualizado Correctamente El Usuario y Su Rol');
+          }
+        },
+        error: (error: any) => {
+          alert('Actualizado Correctamente Solo el Usuario');
+        }
+      });
+    } else {
+      alert('Actualizado Correctamente');
+    }
+    this.navigateBack();
   }
 
 }

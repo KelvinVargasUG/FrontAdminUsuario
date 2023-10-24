@@ -54,11 +54,11 @@
                 </select>
             </div>
 
-            <div class="form-group col-md-3" formArrayName="rol">
+            <div class="form-group col-md-3" formArrayName="rolList">
                 <label class="text-white">Rol</label>
                 <div formGroupName="0">
                     <select formControlName="id" class="form-control">
-                        <option value=""
+                        <option value="0"
                                 selected>{{roles && roles.length > 0 ? 'Seleccione Rol nuevo' : 'No hay roles disponibles' }}</option>
                         <option *ngFor="let rol of roles" [value]="rol.id">{{rol | rolFormatHuman}}</option>
                     </select>

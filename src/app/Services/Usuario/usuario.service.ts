@@ -32,19 +32,9 @@ export class UsuarioService {
   updateUser(id: number, usuario: UsuariosEntity): Observable<HttpResponse<any>> {
     return this.http.put(`${this.apiBase}/${id}`, usuario, {observe: 'response'});
   }
-}
 
-
-/*{
-
-  constructor(private usuarioRepository: UsuarioRepositoryImpl) {
-    usuarioRepository.repositorioUsuario(new UsuarioDatasourceLocal());
+  updateRolUser(idUser: number, idRol: number): Observable<HttpResponse<any>> {
+    return this.http.put(`${this.apiBase}/${idUser}/update_rol/${idRol}`,null,{observe: 'response'});
   }
 
-  getService(): UsuarioRepositoryImpl {
-    return this.usuarioRepository;
-  }
-
-
 }
-*/
