@@ -20,13 +20,13 @@
                     <li class="nav-item">
                         <a class="nav-link"  style="color: #523961" aria-current="page" role="button" (click)="irPage(HomeComponent.ROUTE)"><b><i class="bi bi-house"></i> Home</b></a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" *ngIf="extraerRolActual() === UserRolEnum.ROL_ADMIN">
                         <a class="nav-link dropdown-toggle"  style="color: #523961" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                            <b><i class="bi bi-clipboard2"></i> Administración de Usuarios</b>
                         </a>
                         <ul class="dropdown-menu" style="background-color: #c3bbc9">
-                            <li><a class="dropdown-item"  style="color: #523961" (click)="irPage(UsuariosComponent.ROUTE)"><b><i class="bi bi-person-circle"></i> Usuarios</b></a></li>
-                            <li><a class="dropdown-item"  style="color: #523961" (click)="irPage(UsuariosComponent.ROUTE + '/'+RolesComponent.ROUTE)"><b><i class="bi bi-person-badge-fill"></i> Roles</b></a></li>
+                            <li><a class="dropdown-item"  style="color: #523961" (click)="irPage(UsuariosComponent.ROUTE)" *ngIf="extraerRolActual() === UserRolEnum.ROL_ADMIN"><b><i class="bi bi-person-circle"></i> Usuarios</b></a></li>
+                            <li><a class="dropdown-item"  style="color: #523961" (click)="irPage(UsuariosComponent.ROUTE + '/'+RolesComponent.ROUTE)" *ngIf="extraerRolActual() === UserRolEnum.ROL_ADMIN"><b><i class="bi bi-person-badge-fill"></i> Roles</b></a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

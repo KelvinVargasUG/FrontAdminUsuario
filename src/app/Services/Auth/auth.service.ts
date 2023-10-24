@@ -2,23 +2,24 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UsuariosEntity, AuthUsuario} from "../../Domain/Entities/Entities";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  url_api = "http://localhost:8081/api/auth";
+  private URL_API: string = environment.apiUrlBase + environment.pathApiUrl.auth;
 
   constructor(private http: HttpClient) {
   }
 
   public registreUsuario(authUsuario: AuthUsuario): Observable<HttpResponse<any>> {
-    return this.http.post<UsuariosEntity>(`${this.url_api}/registrar`, authUsuario, {observe: 'response'});
+    return this.http.post<UsuariosEntity>(`${this.URL_API}/registrar`, authUsuario, {observe: 'response'});
   }
 
   public generateToken(authUsuario: AuthUsuario): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.url_api}/generate-token`, authUsuario, {observe: 'response'});
+    return this.http.post(`${this.URL_API}/generate-token`, authUsuario, {observe: 'response'});
   }
 
   //guardamos el token en el storage
@@ -68,7 +69,7 @@ export class AuthService {
   }
 
   public getCurrentUser(): Observable<HttpResponse<any>> {
-    return this.http.get(`${this.url_api}/actual-usuario`, {observe: 'response'});
+    return this.http.get(`${this.URL_API}/actual-usuario`, {observe: 'response'});
   }
 
 

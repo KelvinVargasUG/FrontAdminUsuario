@@ -1,28 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {RolEntity} from "../../Domain/Entities/Entities";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolService {
-  apiBase = "http://localhost:8081/api/roles";
+  private URL_API: string = environment.apiUrlBase + environment.pathApiUrl.rol;
 
   constructor(private http: HttpClient) {
   }
 
   findAllRoles(): Observable<RolEntity[]> {
-    return this.http.get<RolEntity[]>(`${this.apiBase}`);
+    return this.http.get<RolEntity[]>(`${this.URL_API}`);
   }
 
   findRolById(id: number): Observable<RolEntity[]> {
-    return this.http.get<RolEntity[]>(`${this.apiBase}/user/${id}`);
+    return this.http.get<RolEntity[]>(`${this.URL_API}/user/${id}`);
   }
-
-  /*
-  updateUserRol(id_usuario: number, id_rol: number): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.apiBase}/${id_usuario}/roles/${id_rol}`, null);
-  }
-*/
 }

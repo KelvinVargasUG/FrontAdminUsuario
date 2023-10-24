@@ -8,6 +8,7 @@ import {LoginRegistreComponent} from "../../../Modulos/auth/componentes/login-re
 import {AuthService} from "../../../../Services/Services";
 import {HomeComponent} from "../../../Modulos/Home/Componentes/home/home.component";
 import {RolesComponent} from "../../../Modulos/administar-usuarios/componente/roles/roles.component";
+import {UserRolEnum} from "../../../../Domain/Enums/user-rol";
 
 @Component({
   selector: 'app-header',
@@ -27,10 +28,15 @@ export class HeaderComponent {
     return !!this.authService.isLoggedIn();
   }
 
+  public extraerRolActual(): string {
+    return this.authService.getUserRol();
+  }
+
   protected readonly UsuariosComponent = UsuariosComponent;
   protected readonly EditarUsuarioComponent = EditarUsuarioComponent;
   protected readonly LoginRegistreComponent = LoginRegistreComponent;
   protected readonly AuthService = AuthService;
   protected readonly HomeComponent = HomeComponent;
   protected readonly RolesComponent = RolesComponent;
+  protected readonly UserRolEnum = UserRolEnum;
 }
