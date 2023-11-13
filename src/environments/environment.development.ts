@@ -7,3 +7,4 @@ export const environment = {
     auth: '/auth'
   }
 };
+
